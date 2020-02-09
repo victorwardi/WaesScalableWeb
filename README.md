@@ -18,3 +18,6 @@ The main goal of this project is to show my coding skills as a Java Software Dev
 	- If not of equal size just return that
 	- If of same size provide insight in where the diffs are, actual diffs are not needed (So mainly offsets + length in the data)
 
+## Online APP
+
+https://waes-victor-api-assignmnet.herokuapp.com/
