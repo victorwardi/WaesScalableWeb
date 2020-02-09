@@ -1,8 +1,11 @@
 package com.waes.scalableweb.controller;
 
+import javax.validation.Valid;
+
+import com.waes.scalableweb.dto.DifferenceRequestDTO;
+import com.waes.scalableweb.enuns.Side;
 import com.waes.scalableweb.service.DifferenceService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * Rest Controller responsable for
+ * Rest Controller responsible for provide DIFF endpoints
  *
  * @author Victor Wardi - @victorwardi on 2/8/2020
  */
@@ -27,14 +30,10 @@ public class DifferenceController {
         this.differenceService = differenceService;
     }
 
-    @PostMapping(value = "/{id}/left")
+    @PostMapping(value = "/{id}/{side}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addLeftData(@PathVariable final String id, @RequestBody final String data) {
-    }
-
-    @PostMapping(value = "/{id}/right")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addRightData(@PathVariable final String id, @RequestBody final String data) {
+    public void addData(@PathVariable final String id, @PathVariable final Side side,
+                            @RequestBody @Valid final DifferenceRequestDTO differenceRequest) {
     }
 
     @GetMapping(value = "/{id}")

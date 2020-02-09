@@ -25,6 +25,8 @@ class DifferenceControllerTest {
     private static final String DIFF_ENDPOINT = BASE_URL + "/1";
 
     private static final String JSON_ENCODED_ON_BASE64 = "ewoibmFtZSIgOiAiVmljdG9yIFdhcmRpIiwKImNvbXBhbnkiIDogIldBRVMiLAoicm9sZSIgOiAiSmF2YSBEZXZlbG9wZXIiCn0=";
+    private static final String JSON_ENCODED_ON_BASE642 = "ewoibmFtZSIgOiAiVmljdG9yIFdhcmRpIiwKImNvbXBhbnkiIDogIldBRVMiLAoicm9sZSIgOiAiSmF2YSBEZXZlbG9wZXIiCn0=";
+    private static final String JSON_ENCODED_ON_BASE644 = "ewoibmFtZSIgOiAiVmljdG9yIFdhcmRpIiwKImNvbXBhbnkiIDogIldBRVMiLAoicm9sZSIgOiAiSmF2YSBEZXZlbG9wZXIiCn0=";
 
     @Autowired
     MockMvc mockMvc;
@@ -33,12 +35,23 @@ class DifferenceControllerTest {
     DifferenceService differenceService;
 
     @Test
-    void checkIfEndpointToPostLeftDataIsReturning201() throws Exception {
+    void leftEnpointIsReturning201() throws Exception {
+
         this.mockMvc.perform(MockMvcRequestBuilders.post(LEFT_ENDPOINT)
             .content(JSON_ENCODED_ON_BASE64))
             .andExpect(status().isCreated());
 
     }
+
+
+    @Test
+    void leftEnpointIsValidatingEmptyBody() throws Exception {
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post(LEFT_ENDPOINT)
+            .content(""))
+            .andExpect(status().isCreated());
+    }
+
 
     @Test
     void checkIfEndpointToPostRightDataIsReturning201() throws Exception {
