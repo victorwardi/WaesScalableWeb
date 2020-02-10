@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -37,7 +38,7 @@ class DifferenceControllerTest {
     @Test
     void leftEnpointIsReturning201() throws Exception {
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post(LEFT_ENDPOINT)
+        this.mockMvc.perform(post(LEFT_ENDPOINT)
             .content(JSON_ENCODED_ON_BASE64))
             .andExpect(status().isCreated());
 
@@ -47,22 +48,22 @@ class DifferenceControllerTest {
     @Test
     void leftEnpointIsValidatingEmptyBody() throws Exception {
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post(LEFT_ENDPOINT)
+        this.mockMvc.perform(post(LEFT_ENDPOINT)
             .content(""))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
     }
 
 
     @Test
     void checkIfEndpointToPostRightDataIsReturning201() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.post(RIGHT_ENDPOINT)
+        this.mockMvc.perform(post(RIGHT_ENDPOINT)
             .content(JSON_ENCODED_ON_BASE64))
             .andExpect(status().isCreated());
     }
 
     @Test
     void checkIfEndpointToGetDifferenceIsReturning200() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get(DIFF_ENDPOINT)).andExpect(status().isOk());
+        this.mockMvc.perform(get(DIFF_ENDPOINT)).andExpect(status().isOk());
     }
 
 }
