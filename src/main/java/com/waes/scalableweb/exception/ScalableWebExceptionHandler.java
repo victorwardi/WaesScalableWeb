@@ -1,6 +1,25 @@
 package com.waes.scalableweb.exception;
 
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
@@ -11,46 +30,85 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @ControllerAdvice
 public class ScalableWebExceptionHandler extends ResponseEntityExceptionHandler {
-      // 404
 
 
+    private final Environment environment;
 
-    // 400
-
-
-
-//    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
-//    public ResponseEntity<Object> handleBadRequest(final MethodArgumentTypeMismatchException ex, final WebRequest request) {
-//        final String bodyOfResponse = "This should be application specific A";
-//        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-//    }
-//
-//    @ExceptionHandler({ DataIntegrityViolationException.class })
-//    public ResponseEntity<Object> handleBadRequest(final DataIntegrityViolationException ex, final WebRequest request) {
-//        final String bodyOfResponse = "This should be application specific B";
-//
-//
-//        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-//    }
-//
-//    @Override
-//    protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-//
-//        List<String> details = new ArrayList<>();
-//        details.add(ex.getMessage());
-//        details.add(ex.getLocalizedMessage());
-//        details.add("Deu merda!");
-//        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now().toString(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), "Deu Ruim", request.getContextPath(), details);
-//        return handleExceptionInternal(ex, errorResponse, headers, HttpStatus.BAD_REQUEST, request);
-//    }
-//
-//    @Override
-//    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-//        final String bodyOfResponse = "This should be application specific D";
-//        return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
-//    }
+    public ScalableWebExceptionHandler(Environment environment) {
+        this.environment = environment;
+    }
+    // 404
 
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,  HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        List<String> errors = new ArrayList<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.add(error.getField() + ": " + error.getDefaultMessage());
+        }
+        for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
+            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+        }
+
+        ApiErrorResponse apiError = ApiErrorResponse.builder()
+            .timestamp(LocalDateTime.now())
+            .status(HttpStatus.BAD_REQUEST)
+            .message(ex.getLocalizedMessage())
+            .errors(errors)
+            .path(getRequestPath(request))
+            .build();
+
+        return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
+    }
+
+
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public ResponseEntity<Object> handleConstraintViolation( ConstraintViolationException ex, WebRequest request) {
+
+        List<String> errors = new ArrayList<>();
+
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            errors.add(violation.getRootBeanClass().getName() + " " +
+                violation.getPropertyPath() + ": " + violation.getMessage());
+        }
+
+
+        ApiErrorResponse apiError = ApiErrorResponse.builder()
+            .timestamp(LocalDateTime.now())
+            .status(HttpStatus.BAD_REQUEST)
+            .message(ex.getLocalizedMessage())
+            .errors(errors)
+            .path(getRequestPath(request))
+            .build();
+
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    public ResponseEntity<Object> handleMethodArgumentTypeMismatch( MethodArgumentTypeMismatchException ex, WebRequest request) {
+
+        String error = ex.getName() + " should be of type " + ex.getRequiredType().getSimpleName();
+
+        ApiErrorResponse apiError = ApiErrorResponse.builder()
+            .timestamp(LocalDateTime.now())
+            .status(HttpStatus.BAD_REQUEST)
+            .message(ex.getLocalizedMessage())
+            .errors(Arrays.asList(error))
+            .path(getRequestPath(request))
+            .build();
+
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+
+    private String getRequestPath(WebRequest request) {
+        if (request == null) {
+            return "";
+        } else {
+            return ((ServletWebRequest) request).getRequest().getRequestURI();
+        }
+    }
 
 }
 

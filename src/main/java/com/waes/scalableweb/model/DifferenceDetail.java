@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class DifferenceDetail implements Serializable {
@@ -26,8 +28,14 @@ public class DifferenceDetail implements Serializable {
     private Long id;
 
     @Column(name = "offset_detail")
-    private Long offset;
+    private Integer offset;
 
     @Column(name = "length_detail")
-    private Long length;
+    private Integer length;
+
+    @Column(name = "left_detail")
+    private String left;
+
+    @Column(name = "right_detail")
+    private String right;
 }

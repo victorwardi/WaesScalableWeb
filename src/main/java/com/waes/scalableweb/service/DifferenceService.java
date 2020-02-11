@@ -9,7 +9,6 @@ import com.waes.scalableweb.enuns.Side;
  */
 public interface DifferenceService {
 
-
     /**
      * Gets difference.
      *
@@ -18,7 +17,5 @@ public interface DifferenceService {
      */
     DifferenceResponseDTO getDifference(String id);
 
-    boolean addDifference(DifferenceRequestDTO differenceRequestDTO);
-
-    void addDifferenceSideData(String id, String encodedString, Side side);
+    void addDifferenceSideData(String id,  Side side, DifferenceRequestDTO differenceRequestDTO);
 }

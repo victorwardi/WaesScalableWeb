@@ -6,8 +6,8 @@ import com.waes.scalableweb.dto.DifferenceRequestDTO;
 import com.waes.scalableweb.dto.DifferenceResponseDTO;
 import com.waes.scalableweb.enuns.Side;
 import com.waes.scalableweb.service.DifferenceService;
-import com.waes.scalableweb.validation.EncodedOnBase64;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +32,13 @@ public class DifferenceController {
         this.differenceService = differenceService;
     }
 
-    @PostMapping(value = "/{id}/{side}")
+    @PostMapping(value = "/{id}/{side}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEncodedDataToSideWithID(@PathVariable final String id, @PathVariable final Side side,  @RequestBody @EncodedOnBase64 final String encodedData) {
-        this.differenceService.addDifferenceSideData(id, encodedData, side);
+    public void addEncodedDataToSideWithID(@PathVariable final String id, @PathVariable final Side side, @Valid @RequestBody DifferenceRequestDTO differenceRequest) {
+            this.differenceService.addDifferenceSideData(id, side, differenceRequest);
     }
 
-    @PostMapping(value = "/{side}")
+    @PostMapping(value = "/")
     @ResponseStatus(HttpStatus.CREATED)
     public void addEncodedDataToSide(@PathVariable final Side side, @RequestBody @Valid final DifferenceRequestDTO differenceRequest) {
 

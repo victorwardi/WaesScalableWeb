@@ -22,7 +22,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface EncodedOnBase64 {
 
-    String message() default "Must be encoded on base 64}";
+    String message() default "must be encoded on base 64";
 
     Class<?>[] groups() default {};
 

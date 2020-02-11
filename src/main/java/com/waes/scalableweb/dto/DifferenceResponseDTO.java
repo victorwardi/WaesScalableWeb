@@ -2,6 +2,7 @@ package com.waes.scalableweb.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.waes.scalableweb.enuns.DifferenceResult;
 import com.waes.scalableweb.model.DifferenceDetail;
 import lombok.Builder;
@@ -19,8 +20,10 @@ public class DifferenceResponseDTO {
 
     private String id;
 
+    @JsonProperty("result")
     private DifferenceResult differenceResult;
 
+    @JsonProperty("details")
     private List<DifferenceDetail> differenceDetails;
 
 

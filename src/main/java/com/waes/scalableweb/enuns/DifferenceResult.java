@@ -12,7 +12,7 @@ public enum DifferenceResult {
     /**
      * Contents are equal.
      */
-    EQUAL("Contents are equal."),
+    EQUALS("Contents are equals."),
 
     /**
      * Contents have different sizes.
