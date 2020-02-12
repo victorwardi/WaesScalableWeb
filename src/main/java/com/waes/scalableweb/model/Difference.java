@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.waes.scalableweb.contants.Messages;
+import com.waes.scalableweb.contants.WaesApiMessage;
 import com.waes.scalableweb.enuns.DifferenceResult;
 import com.waes.scalableweb.enuns.Side;
 import com.waes.scalableweb.exception.WaesApiRuntimeException;
@@ -52,7 +52,7 @@ public class Difference implements Serializable {
         orphanRemoval = true
     )
     @JoinColumn(name = "difference_id")
-    private List<DifferenceDetail> details = new ArrayList<>();
+    private List<DifferenceDetail> details;
 
 
     /**
@@ -114,13 +114,26 @@ public class Difference implements Serializable {
      */
     private void checkBothSidesAvailability() {
 
-        if (this.getLeftData() == null || this.getLeftData().isEmpty()) {
-            throw new WaesApiRuntimeException(Messages.LEFT_SIDE_NOT_FOUND);
+        boolean isLeftSideNotFound = this.getLeftData() == null || this.getLeftData().isEmpty();
+
+        boolean isRightSideNotFound = this.getRightData() == null || this.getRightData().isEmpty();
+
+        //If both sides are not available throw exception
+        if(isLeftSideNotFound && isRightSideNotFound){
+
+            throw new WaesApiRuntimeException(WaesApiMessage.SIDES_NOT_FOUND);
+
+        //Check each side and throw specific exception
+        }else{
+
+            if (isLeftSideNotFound) {
+                throw new WaesApiRuntimeException(WaesApiMessage.LEFT_SIDE_NOT_FOUND);
+            }else if (isRightSideNotFound) {
+                throw new WaesApiRuntimeException(WaesApiMessage.RIGHT_SIDE_NOT_FOUND);
+            }
         }
 
-        if (this.getRightData() == null || this.getRightData().isEmpty()) {
-            throw new WaesApiRuntimeException(Messages.RIGHT_SIDE_ALREADY_HAS_DATA);
-        }
+
 
     }
 
