@@ -38,13 +38,6 @@ public class DifferenceController {
             this.differenceService.addDifferenceSideData(id, side, differenceRequest);
     }
 
-    @PostMapping(value = "/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addEncodedDataToSide(@PathVariable final Side side, @RequestBody @Valid final DifferenceRequestDTO differenceRequest) {
-
-
-    }
-
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public DifferenceResponseDTO getDifferenceById(@PathVariable final String id) {

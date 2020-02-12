@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.waes.scalableweb.enuns.DifferenceResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +39,8 @@ public class Difference implements Serializable {
 
     @Lob
     private String rightData;
+
+    private DifferenceResult differenceResult;
 
     @OneToMany(
         cascade = CascadeType.ALL,

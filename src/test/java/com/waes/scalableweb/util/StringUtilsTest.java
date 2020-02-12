@@ -29,12 +29,12 @@ class StringUtilsTest {
         assertEquals(true, StringUtils.isStringValidJson("{ \"techs\" : [ {\"name\" : \"Java\"},{\"name\" : \"JUnit\"} ]}"));
 
         assertEquals(true, StringUtils.isStringValidJson("{}"));
-        assertEquals(true, StringUtils.isStringValidJson("{"));
+        assertEquals(false, StringUtils.isStringValidJson("{"));
 
         assertEquals(true, StringUtils.isStringValidJson("[]"));
-        assertEquals(true, StringUtils.isStringValidJson("["));
-        assertEquals(true, StringUtils.isStringValidJson("2"));
-        assertEquals(true, StringUtils.isStringValidJson("null"));
+        assertEquals(false, StringUtils.isStringValidJson("["));
+        assertEquals(false, StringUtils.isStringValidJson("2"));
+        assertEquals(false, StringUtils.isStringValidJson("null"));
     }
 
     @Test
