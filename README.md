@@ -5,8 +5,8 @@ The main goal of this project is to show my coding skills as a Java Software Dev
 ## Assumptions
 
 - POST Endpoints will send a Json with some encode data on base64 (text, images, files etc).
-- Difference check will be applied on the the encoded data.
-- Each ID has a SIDE and one encoded data, but data will be update if submitted to the same SIDE and ID.
+- Differences verification will be applied on the the encoded data.
+- Each ID has a SIDE and one encoded data, but data will be update if submitted to the same ID and SIDE.
 
 ## Getting Started
 
@@ -55,10 +55,17 @@ To run the application
 ```
 mvn spring-boot:run
 ```
+Expected result:
+
+<img src="https://github.com/victorwardi/WaesScalableWeb/raw/master/readme-images/running-ok.jpg" width="500px">
 
 ### The app API will be available at:
 
 http://localhost:8080
+
+Index page:
+
+<img src="https://github.com/victorwardi/WaesScalableWeb/raw/master/readme-images/online-app.jpg" width="400px">
 
 ## API
 
@@ -77,16 +84,18 @@ Example: /v1/diff/1/left
 ```       
 
 #### POST /v1/diff/{id}/left
+
 ```  
 Example: /v1/diff/1/left  
 
 {"encodedData" : "M21IzNDU1Jw23=="}
 ```
 
-#### GET diff
+#### GET difference - /v1/diff/{id}
 
-- GET /v1/diff/{id}
 ```
+Example: /v1/diff/1
+
 Response:
 
 {
@@ -110,6 +119,7 @@ Response:
 ```
 
 ## Online APP
+
 It is possible to test this app online: 
 
 [WEAS App](https://waes-victor-scalable-web.herokuapp.com/)
@@ -126,8 +136,10 @@ It is possible to test this app online:
 
 ## Improvements
 
+- Add more unit and integration tests.
 - Put the app in a docker container
 - Add a real database, not an in memory one.
 - Add profiles such as: local, dev, hom, prod and test.
 - Internationalization.
+
 
