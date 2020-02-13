@@ -9,7 +9,7 @@ import org.mockito.Mock;
 /**
  * @author Victor Wardi - @victorwardi on 2/11/2020
  */
-class DifferenceServiceTest {
+class DifferenceServiceIT {
 
     @Mock
     DifferenceService differenceService;

@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @AutoConfigureTestDatabase
-class DifferenceRepositoryTest {
+class DifferenceRepositoryIT {
 
     @Autowired
     private TestEntityManager entityManager;
