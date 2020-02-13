@@ -14,7 +14,11 @@ public class WaesApiMessage {
 
     public static final String ERROR_COMPARING_SIDES = "Error on comparison of sides";
 
-    public static final String ARGUMENT_NOT_VALID = "Argument Not Valid";
+    public static final String ARGUMENT_NOT_VALID = "Argument not valid";
+
+    public static final String CONTENT_TYPE_NOT_VALID = "Content type not nalid";
+
+    public static final String REQUEST_BODY_IS_MISSING = "Request body is missing";
 
     public static final String STRING_NOT_ENCODED_ON_BASE64 = "String not encoded on base 64";
 
