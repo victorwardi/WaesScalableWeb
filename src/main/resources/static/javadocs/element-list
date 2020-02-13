@@ -1,0 +1,13 @@
+com.waes.victor.api
+com.waes.victor.api.config
+com.waes.victor.api.contants
+com.waes.victor.api.controller
+com.waes.victor.api.converter
+com.waes.victor.api.dto
+com.waes.victor.api.enuns
+com.waes.victor.api.exception
+com.waes.victor.api.model
+com.waes.victor.api.repository
+com.waes.victor.api.service
+com.waes.victor.api.util
+com.waes.victor.api.validation

@@ -60,11 +60,12 @@ public class WaesApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Override the handle method argument type mismatch exception response entity.
-     * @param ex
-     * @param headers
-     * @param status
-     * @param request
-     * @return
+     *
+     * @param ex      the exception
+     * @param headers the headers
+     * @param status  the status
+     * @param request the request
+     * @return the response entity
      */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {

@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * Set custom formatters from String to Side Enum
      *
-     * @param registry
+     * @param registry Formatt
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {

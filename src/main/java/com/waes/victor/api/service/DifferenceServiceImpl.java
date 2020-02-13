@@ -85,7 +85,7 @@ public class DifferenceServiceImpl implements DifferenceService {
     /**
      * Check if String is encoded on Base64
      *
-     * @param encodedData
+     * @param encodedData String is encoded on Base64
      */
     private void checkEncodedData(String encodedData) {
 
@@ -97,7 +97,7 @@ public class DifferenceServiceImpl implements DifferenceService {
     /**
      * Find a Difference from database by ID or a new instance
      *
-     * @param id
+     * @param id Id of the operation
      * @return a Diffference
      */
     private Difference findOrBuildDifferenceById(String id) {

@@ -59,7 +59,6 @@ class DifferenceControllerIT {
             .content(JSON_ENCODED_DATA))
             .andExpect(status().isBadRequest());
 
-
     }
 
     @Test
