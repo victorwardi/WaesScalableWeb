@@ -1,6 +1,4 @@
-#  WAES RECRUITMENT CHALLENGE
-
-[![CircleCI](https://circleci.com/gh/victorwardi/WaesScalableWeb.svg?style=svg)](https://circleci.com/gh/victorwardi/WaesScalableWeb)
+#  WAES RECRUITMENT CHALLENGE [![CircleCI](https://circleci.com/gh/victorwardi/WaesScalableWeb.svg?style=svg)](https://circleci.com/gh/victorwardi/WaesScalableWeb)
 
 The main goal of this project is to show my coding skills as a Java Software Developer.
 
@@ -115,8 +113,8 @@ Response:
 It is possible to test this app online: 
 
 [WEAS App](https://waes-victor-api.herokuapp.com)
-[Documentation](https://waes-victor-api.herokuapp.com/swagger-ui.html)
 
+[Documentation](https://waes-victor-api.herokuapp.com/swagger-ui.html)
 
 ## Built With
 
@@ -129,7 +127,7 @@ It is possible to test this app online:
 ## Improvements
 
 - Put the app in a docker container
-- Add of real database, not an in memory one.
-- Add profiles such as local, dev, hom, prod and test.
+- Add a real database, not an in memory one.
+- Add profiles such as: local, dev, hom, prod and test.
 - Internationalization.
 
