@@ -112,9 +112,9 @@ Response:
 ## Online APP
 It is possible to test this app online: 
 
-[WEAS App](https://waes-victor-api.herokuapp.com)
+[WEAS App](https://waes-victor-scalable-web.herokuapp.com/)
 
-[Documentation](https://waes-victor-api.herokuapp.com/swagger-ui.html)
+[Documentation](https://waes-victor-scalable-web.herokuapp.com/swagger-ui.html)
 
 ## Built With
 
