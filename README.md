@@ -1,10 +1,11 @@
 #  WAES RECRUITMENT CHALLENGE
-  
+
 [![CircleCI](https://circleci.com/gh/victorwardi/WaesScalableWeb.svg?style=svg)](https://circleci.com/gh/victorwardi/WaesScalableWeb)
-  
+
 The main goal of this project is to show my coding skills as a Java Software Developer.
 
 ## Assumptions
+
 - POST Endpoints will send a Json with some encode data on base64 (text, images, files etc).
 - Difference check will be applied on the the encoded data.
 - Each ID has a SIDE and one encoded data, but data will be update if submitted to the same SIDE and ID.
@@ -18,64 +19,104 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the project
 
 ```
-- Java 11
-- Maven
+- JDK Java 11
+- Maven 3.6+
 ```
 
 ### Installing
 
 Clone or download the project from: https://github.com/victorwardi/WaesScalableWeb
 
-On the source folder open your preferred command line tool and type:
+Go to the source folder with your preferred command line tool and type:
 
-    mvn clean install
+```
+mvn clean install
+```
 
-All dependecies will be downloaded and the project will be com
-And repeat
+All dependencies will be downloaded, tests will be made and your project will be ready to run.
 
+## Testing
 
-    mvn spring-boot:run
+In case you need to re-run some tests
 
+### Running unit tests
 
-## The rest API will be available at:
+```
+mvn test
+```
 
-    http://localhost:8080
+### Running integration tests:
+```
+mvn failsafe:integration-test   
+```
 
-## Running the tests
+## Running
 
-    mvn test
-    
-## Running integration tests:
+To run the application
 
-    mvn verify   
-    
-    
+```
+mvn spring-boot:run
+```
+
+### The app API will be available at:
+
+http://localhost:8080
+
 ## API
 
-Post contents (Base64 encoded JSON)
+Documentation is provided at:   
 
-    POST /v1/diff/{id}/left
-    POST /v1/diff/{id}/right
+http://localhost:8080/swagger-ui.html
 
-Get the diff
+To post data to a side: 
 
-    GET /v1/diff/{id}
+#### POST /v1/diff/{id}/left     
+
+```
+Example: /v1/diff/1/left     
+ 
+{"encodedData" : "MTIzNDU72NwVX=="}
+```       
+
+#### POST /v1/diff/{id}/left
+```  
+Example: /v1/diff/1/left  
+
+{"encodedData" : "M21IzNDU1Jw23=="}
+```
+
+#### GET diff
+
+- GET /v1/diff/{id}
+```
+Response:
+
+{
+    "id": "1",
+    "result": "Contents have same size but different contents.",
+    "details": [
+        {
+            "offset": 1,
+            "length": 9,
+            "left": "TIzNDU72N",
+            "right": "21IzNDU1J"
+        },
+        {
+            "offset": 11,
+            "length": 2,
+            "left": "VX",
+            "right": "23"
+        }
+    ]
+}
+```
 
 ## Online APP
+It is possible to test this app online: 
 
-[Heroku App](https://waes-victor-api.herokuapp.com)
+[WEAS App](https://waes-victor-api.herokuapp.com)
+[Documentation](https://waes-victor-api.herokuapp.com/swagger-ui.html)
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -87,6 +128,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Improvements
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+- Put the app in a docker container
+- Add of real database, not an in memory one.
+- Add profiles such as local, dev, hom, prod and test.
+- Internationalization.
+
